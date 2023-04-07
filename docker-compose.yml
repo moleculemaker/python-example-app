@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  python-example-app:
+    # Build this image from the Dockerfile
+    build:
+      context: .
+
+    # Run a new container from the built image
+    container_name: python-example-app
+    image: moleculemaker/python-example-app
+
+    # Mount your source directory into the container to preserve edits
+    volumes:
+      - ".:/home/jovyan"
+
+    # Expose port Jupyter on localhost:8888
+    ports:
+      - "8888:8888"

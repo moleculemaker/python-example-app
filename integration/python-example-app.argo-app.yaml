@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # Name of the app in ArgoCD
+  name: python-example-app
+spec:
+  # ArgoCD project for this app
+  project: mmli1
+
+  # Helm chart git repo+branch+path and values to deploy
+  source:
+    path: integration/chart
+    repoURL: 'https://github.com/moleculemaker/python-example-app'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.prod.yaml
+
+  # Cluster + namespace where this application should run
+  destination:
+    namespace: example
+    name: mmli1
+
+  # Additional deploy options
+  syncPolicy:
+    syncOptions:
+      # Create the "example" namespace if it doesn't exist already
+      - CreateNamespace=true

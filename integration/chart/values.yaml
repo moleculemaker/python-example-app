@@ -1,0 +1,15 @@
+labels:
+  app: python-example-app
+
+ingress:
+  hostname: python.example.localhost
+  tls: false
+  annotations: {}
+
+service:
+  type: LoadBalancer
+
+controller:
+  image: moleculemaker/python-example-app
+  port: 8888
+

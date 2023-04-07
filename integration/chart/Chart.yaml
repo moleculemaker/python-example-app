@@ -1,0 +1,5 @@
+apiVersion: v2
+description: "Python Example App"
+name: python-example-app
+version: 1.0.0
+dependencies: []

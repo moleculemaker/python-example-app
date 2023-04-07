@@ -1,0 +1,15 @@
+# Ignore edits to these items when rebuilding Docker image from cache
+Dockerfile*
+docker-compose.yml
+
+# Git + GitHub metadata
+.git/
+.github/
+
+# JupterLab metadata
+.ipynb_checkpoints/
+.local/
+.jupyter/
+.ipython/
+.cache/
+

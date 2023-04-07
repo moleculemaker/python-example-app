@@ -1,0 +1,20 @@
+ingress:
+  # Override with our production hostname
+  hostname: python.example.mmli1.ncsa.illinois.edu
+
+  # Enable TLS (must provide a cert)
+  tls: true
+
+  annotations:
+    # Create and automatically renew a TLS cert from LetsEncrypt
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    kubernetes.io/tls-acme: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+
+service:
+  type: ClusterIP
+
+# Use the "main" tag for production instead of "latest"
+controller:
+  image: moleculemaker/python-example-app:main
+

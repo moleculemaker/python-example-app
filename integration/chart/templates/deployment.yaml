@@ -1,0 +1,26 @@
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    release: {{ .Release.Name }}
+{{- toYaml .Values.labels | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      release: {{ .Release.Name }}
+{{- toYaml .Values.labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+{{- toYaml .Values.labels | nindent 8 }}
+    spec:
+      containers:
+        - name: python-example-app
+          image: {{ .Values.controller.image }}
+          ports:
+            - containerPort: {{ .Values.controller.port }}
+          imagePullPolicy: Always

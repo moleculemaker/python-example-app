@@ -1,0 +1,9 @@
+# JupterLab metadata
+.ipynb_checkpoints/
+.local/
+.jupyter/
+.ipython/
+.cache/
+
+# GitHub metadata
+.github/
