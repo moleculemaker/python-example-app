@@ -3,7 +3,7 @@ This is an example Python Docker application that will run JupyterLab.
 
 This pattern can be used to run any long-running Python service that is not expected to terminate.
 
-For short-term jobs that *are* expected to terminate, you won't need the Helm chart steps at the end. 
+For short-term jobs that *are* expected to terminate, you won't need the Helm chart or ArgoCD app steps at the end. 
 
 
 # Prerequisites
