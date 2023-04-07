@@ -21,12 +21,12 @@ Recommended developer workflow:
 5. `kubectl apply -f kubernetes.yaml` - run image in Kubernetes cluster (image must be published first)
 6. Navigate to http://localhost:8888 again to perform integration testing
 7. `kubectl delete -f kubernetes.yaml` - shut it down again
-8. Create a new Helm chart describing how to run this Docker image
+8. Create a new [Helm chart](./integration/chart) describing how to run this Docker image
     * The Helm chart will use templates and variable values to produce something like `kubernetes.yaml`
-    * Ideally, we should include `values.yaml` (default values), `values.local.yaml` (config for local development), and `values.prod.yaml` (config for production).
-    * WARNING: for production passwords and secrets, **DO NOT** commit them to git in plaintext. We will need to create a [SealedSecret](https://github.com/bitnami-labs/sealed-secrets#sealed-secrets-for-kubernetes) first to secure these resources.
+    * Ideally, we should include `values.yaml` (default config), `values.local.yaml` (config for local development), and `values.prod.yaml` (config for production).
+    * WARNING: for production passwords and secrets, **DO NOT** commit them to git in plaintext. We will need to create a [SealedSecret](https://github.com/bitnami-labs/sealed-secrets#sealed-secrets-for-kubernetes) to secure these resources.
 9. Install the helm chart and perform final testing locally
-10. Add an ArgoCD app to deploy the Helm chart to the production cluster using the correct config values (e.g. `values.prod.yaml`)
+10. Add an [ArgoCD app](./integration/python-example-app.argo-app.yaml) to deploy the Helm chart to the production cluster using the correct config values (e.g. `values.prod.yaml`)
 
 
 # Development
@@ -171,7 +171,7 @@ If you have access to ArgoCD, you can Create a new Argo App on the cluster.
 
 The ArgoCD app will accept a git repo/path containing your Helm chart, and a path to the `values.yaml` file that it should use to deploy this instance.
 
-For this example, we would create an ArgoCD app like the one in [integration/python-example-app.application.yaml](./integration/python-example-app.application.yaml)
+For this example, we would create an ArgoCD app like the one in [integration/python-example-app.argo-app.yaml](./integration/python-example-app.argo-app.yaml)
 
 After we create this Application resource, it will deploy the given `source` Helm chart automatically to the `destination` cluster/namespace.
 
