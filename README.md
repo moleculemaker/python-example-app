@@ -1,7 +1,7 @@
-# Jupyter + Python Docker Starter Example
+# Python Docker Starter Example
 This is an example Python Docker application that will run JupyterLab.
 
-This pattern can be used to run any long-running Python service that are not expected to terminate.
+This pattern can be used to run any long-running Python service that is not expected to terminate.
 
 For short-term jobs that *are* expected to terminate, you won't need the Helm chart steps at the end. 
 
