@@ -156,7 +156,7 @@ $ kubectl delete -f integration/kubernetes.yaml
 ```
 
 
-# Deploying to Production
+# 10) Deploying to Production
 The final step is to deploy this Helm chart to our production cluster.
 
 We can do this automatically using ArgoCD, which will upgrade our running Helm chart when we make changes to the GitHub repo.
@@ -173,14 +173,27 @@ The ArgoCD app will accept a git repo/path containing your Helm chart, and a pat
 
 For this example, we would create an ArgoCD app like the one in [integration/python-example-app.application.yaml](./integration/python-example-app.application.yaml)
 
-After we create this Application resource, it will deploy the given `source` Helm chart automatically to the `destination` cluster/namespace. ArgoCD will keep the running application in sync as we change the Helm chart in our repo.
+After we create this Application resource, it will deploy the given `source` Helm chart automatically to the `destination` cluster/namespace.
 
-## Automated Docker Build
+
+# Looking Forward: Automated Maintenance
+With all the steps we've taken above, we are able to automate the last few manual steps here.
+
+## Updates to the Source Code
 Changes to the source code will require occasionally building and pushing a new Docker image.
 
 We can automate this process using [GitHub Actions](https://docs.github.com/en/actions/quickstart), and have provided [docker.yml](./.github/workflows/docker.yml) to help!
 
 This simple workflow will trigger when changes are pushed to the default branch of the repo, if a Pull Request is created, or if a new release version is tagged.
 
-The workflow will automatically build a new Docker image with approriate image tags and push it to DockerHub.
+The workflow will automatically build a new Docker image with appropriate image tags and push the image to DockerHub.
 
+## Updates to the Helm Chart
+ArgoCD will keep the running application in sync as we change the Helm chart in our repo.
+
+We just need to push changes to the `main` branch for ArgoCD to pick them up.
+
+## Missing Automation: Delete Pod to use new Docker Image
+We are still missing one automated piece here to deploy the new image automatically after the build completes, but we are looking into tools to fill this gap. We may need to do this part manually for now, since it would involve shutting down / restarting the running services and we should manually choose when this happens.
+
+See https://stackoverflow.com/a/55914480
